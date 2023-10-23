@@ -1,0 +1,98 @@
+<link rel="stylesheet" href="index.css">
+<div class="top-image">
+<h1>気軽に筋トレしよう！</h1>
+<h3>Trainings一覧</h3> 
+<div class="font-size">
+ 筋トレ初心者
+</div>
+<div class="card-parent">
+  <% @trainings.each do |t| %>
+    <% if t.category == "beginner" %>
+      <div class="trainings">
+        <div class="child-element">
+          <div class="image-parent"><iframe width="100%" height="100%" src="https://www.youtube.com/embed/<%=t.youtube_url%>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+          <h3><%= t.title %></h3>
+          <div class="f-container">
+            <% if user_signed_in? %>
+              <% if current_user.already_liked?(t) %>
+                <%= button_to training_like_path(id: t.id, training_id: t.id), method: :delete do %>
+                  <i class="fas fa-heart"></i> <%= t.likes.count %>
+                <% end %>
+              <% else %>
+                <%= button_to training_likes_path(id: t.id, training_id: t.id), method: :post do %>
+                  <i class="far fa-heart"></i> <%= t.likes.count %>
+                <% end %>
+              <% end %>
+            <% else %>
+            <i class="far fa-heart"></i> <%= t.likes.count %>
+            <% end %>
+              <%= link_to "詳細へ", training_path(t.id) %> 
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div> 
+<div class="font-size">
+ 本気で痩せたい人向け
+</div>
+<div class="card-parent">
+  <% @trainings.each do |t| %>
+    <% if t.category == "slimming" %>
+      <div class="trainings">
+        <div class="child-element">
+          <div class="image-parent"><iframe width="100%" height="100%" src="https://www.youtube.com/embed/<%=t.youtube_url%>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+          <%= t.title %>
+          <div class="f-container">
+            <% if user_signed_in? %>
+              <% if current_user.already_liked?(t) %>
+                <%= button_to training_like_path(id: t.id, training_id: t.id), method: :delete do %>
+                  <i class="fas fa-heart"></i><%= t.likes.count %>
+                <% end %>
+              <% else %>
+                <%= button_to training_likes_path(id: t.id, training_id: t.id), method: :post do %>
+                  <i class="fas fa-heart"></i><%= t.likes.count %>
+                <% end %>
+              <% end %>
+            <% else %>
+            <i class="fas fa-heart"></i><%= t.likes.count %>
+            <% end %>
+            <%= link_to "詳細へ", training_path(t.id) %> 
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %> 
+</div>
+<div class="font-size">
+ 筋トレ・ダイエットのための食事
+</div>
+<div class="card-parent">
+  <% @trainings.each do |t| %>
+    <% if t.category == "meal" %>
+      <div class="trainings">
+        <div class="child-element">
+          <div class="image-parent"><iframe width="100%" height="100%" src="https://www.youtube.com/embed/<%=t.youtube_url%>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+          <%= t.title %>
+          <div class="f-container">
+            <% if user_signed_in? %>
+              <% if current_user.already_liked?(t) %>
+                <%= button_to training_like_path(id: t.id, training_id: t.id), method: :delete do %>
+                  <i class="fas fa-heart"></i><%= t.likes.count %>
+                <% end %>
+              <% else %>
+                <%= button_to training_likes_path(id: t.id, training_id: t.id), method: :post do %>
+                  <i class="fas fa-heart"></i><%= t.likes.count %>
+                <% end %>
+              <% end %>
+            <% else %>
+            <i class="fas fa-heart"></i><%= t.likes.count %>
+            <% end %>
+            <%= link_to "詳細へ", training_path(t.id) %> 
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+</div>

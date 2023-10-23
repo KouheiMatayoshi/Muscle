@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Let's workout</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <script src="https://kit.fontawesome.com/069b37131a.js" crossorigin="anonymous"></script>
+    <link rel="styleheet" href="https//unpkg.com/ress/dist/ress.min.css">
+    <link rel="stylesheet" href="application.css">
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%#= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rampart+One&family=Young+Serif&display=swap" rel="stylesheet">
+  </head>
+
+  <body>
+  <header>
+      <h1>Let's workout</h1>
+      <div class="header-list">
+      <ul>
+        <li><%= link_to "ホーム", trainings_path %></li>
+        <% unless user_signed_in? %>
+        <li><%= link_to "ログイン", new_user_session_path %></li>
+        <li><%= link_to "新規登録", new_user_registration_path %></li>
+        <% end %>
+        <% if user_signed_in? %>
+          <li><%= link_to "マイページへ", user_path(current_user.id) %></li>
+          <li><%= button_to "ログアウト", destroy_user_session_path,class:'logout' ,method: :delete %></li>
+        <% end %>
+<% if user_signed_in? %>
+  <% if current_user.admin? %>
+    <li><%= link_to "秘密のページへ",  new_training_path %></li>
+  <% end %>
+<% end %>
+ 
+
+      </ul>
+      </div>
+    </header>
+    <main>
+    <%= yield %>
+  </main>
+  <footer>
+  <p>Copyright © Let's workout All Rights Reserved.</p>
+</footer>
+  </body>
+</html>

@@ -1,0 +1,18 @@
+<h1>Let's workout</h1>
+<h3>Muscles一覧</h3>
+<%= form_for @trainings do |f| %>
+  <div class="field">
+    <%= f.label :title %>
+    <%= f.text_field :title, :size => 140 %>
+  </div>
+  <%= f.select :category, [["筋トレ初心者", "beginner"], ["本気で痩せたい人向け", "slimming"], ["筋トレ・ダイエットのための食事", "meal"]], include_blank: "どの投稿？" %>
+
+  <div class="field">
+    <%= f.label :youtube_url %>
+    <%= f.text_field :youtube_url, :size => 140 %>
+  </div>
+  <%= f.submit "投稿する" %>
+<% end %>
+<%= link_to "Muscle一覧に戻る", trainings_path %>
+
+

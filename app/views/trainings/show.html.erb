@@ -1,0 +1,30 @@
+<h1>Let's workout</h1>
+<h3>Trainings詳細</h3>
+<div class="trainings">
+  <p><%= @trainings.title %></p>
+  <p><%= @trainings.created_at %></p>
+  <% if user_signed_in? %>
+  <% if current_user.already_liked?(@trainings) %>
+    <%= button_to training_like_path(@trainings), method: :delete do %>
+      <p>いいねを取り消す</p><%= @trainings.likes.count %>
+      <i class="fa-solid fa-heart"></i><%= @trainings.likes.count %>
+    <% end %>
+  <% else %>
+    <%= button_to training_like_path(@trainings), method: :post do %>
+      <i class="fa-solid fa-heart"></i><%= @trainings.likes.count %>
+      <p>いいね</p><%= @trainings.likes.count %>
+    <% end %>
+  <% end %>
+<% else %>
+  <p>いいねの数 = </p><%= @trainings.likes.count %>
+  <i class="fa-solid fa-heart"></i><%= @trainings.likes.count %>
+<% end %>
+<%= link_to "編集する", edit_training_path(@trainings.id) %>
+</div>
+
+<h2>いいねしたユーザー</h2>
+<% @trainings.liked_users.each do |user| %>
+  <li><%= user.email %></li>
+<% end %>
+
+<%= link_to "Muscle一覧に戻る", trainings_path %>
